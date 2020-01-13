@@ -1,11 +1,12 @@
 package com.quantitymeasurement.service;
 
 import com.quantitymeasurement.model.IUnit;
+import com.quantitymeasurement.model.ParameterBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class doStuff {
+public class ConvertStringParameterIntoEnum {
 
     IUnit unitFirst, unitSecond;
 
@@ -19,12 +20,11 @@ public class doStuff {
             unitFirst = unitContainer.getUnit(unit1);
             unitSecond = unitContainer.getUnit(unit2);
             boolean compare = quantityMeasurement.compare(unitFirst, val1, unitSecond, val2);
-            return val1 + unit1 + " is equal to " + val2 + unit2 + compare;
+            return "is "+val1 + unit1 + " equal to " + val2 + unit2 +"? :"+ compare;
         } catch (QuantityMeasurementException e) {
-            return "something Went wrong....." + "<br><br>" + e.getMessage();
+            return "something Went wrong....." + "<br><br>" + e.type;
         }
     }
-
 
     public String doAdd(String unit1, Double val1, String unit2, Double val2) {
         try {
@@ -33,7 +33,15 @@ public class doStuff {
             Double additionOfTwoUnits = quantityMeasurement.additionOfTwoUnits(unitFirst, val1, unitSecond, val2);
             return "Addition of " + val1 + unit1 + " & " + val2 + unit2 + " is equal to " + additionOfTwoUnits;
         } catch (QuantityMeasurementException e) {
-            return "something Went wrong....." + "<br><br>" + e.getMessage();
+            return "something Went wrong....." + "<br><br>" + e.type;
         }
+    }
+
+    public String doCompareByBody(ParameterBody paramBody) {
+        return doCompare(paramBody.getUnit1(),paramBody.getVal1(),paramBody.getUnit2(),paramBody.getVal2());
+    }
+
+    public String doAddByBody(ParameterBody paramBody) {
+        return doAdd(paramBody.getUnit1(),paramBody.getVal1(),paramBody.getUnit2(),paramBody.getVal2());
     }
 }

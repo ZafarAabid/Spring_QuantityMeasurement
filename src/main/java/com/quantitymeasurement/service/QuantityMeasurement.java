@@ -17,20 +17,20 @@ public class QuantityMeasurement {
         this.unit = unit;
     }
 
-    public boolean compare(IUnit unitFirst, Double firParameter, IUnit unitSecond, Double secondParameter) throws QuantityMeasurementException {
+    public boolean compare(IUnit unitFirst, Double firstParameter, IUnit unitSecond, Double secondParameter) throws QuantityMeasurementException {
         if (!unitFirst.getClass().equals(unitSecond.getClass()))
             throw new QuantityMeasurementException("parameter units are of two different type", QuantityMeasurementException.ExceptionType.UNIT_NOT_COMPARABLE);
-        Double firstValue = unitFirst.convertValue(firParameter);
+        Double firstValue = unitFirst.convertValue(firstParameter);
         Double secondValue = unitSecond.convertValue(secondParameter);
         return (Double.compare(Math.round(firstValue), Math.round(secondValue)) == 0);
     }
 
-    public Double additionOfTwoUnits(IUnit unitFirst, Double firParameter, IUnit unitSecond, Double secondParameter) throws QuantityMeasurementException {
+    public Double additionOfTwoUnits(IUnit unitFirst, Double firstParameter, IUnit unitSecond, Double secondParameter) throws QuantityMeasurementException {
         if (unitFirst.getClass().getName().equals(UnitOfTemperature.class.getName())
                 | unitSecond.getClass().getName().equals(UnitOfTemperature.class.getName())
                 | !unitFirst.getClass().equals(unitSecond.getClass()))
             throw new QuantityMeasurementException("parameter units cant be added", QuantityMeasurementException.ExceptionType.UNIT_NOT_ADDABLE);
-        Double firstValue = unitFirst.convertValue(firParameter);
+        Double firstValue = unitFirst.convertValue(firstParameter);
         Double secondValue = unitSecond.convertValue(secondParameter);
         return (firstValue + secondValue);
     }
